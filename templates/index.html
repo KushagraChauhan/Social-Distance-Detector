@@ -1,0 +1,53 @@
+<html>
+<head>
+</head>
+<body>
+
+  <div style="text-align:center">
+    <button onclick="playPause()">Play/Pause</button>
+    <br><br>
+    <video id="video1" width="420">
+      <source src="/home/kush/personal/social-distance-detector/pedestrians.mp4" type="video/mp4">
+    </video>
+    <br><br>
+    <button id="sendButton">Send</button>
+  </div>
+  <script
+   src="https://code.jquery.com/jquery-3.2.1.js"
+   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+   crossorigin="anonymous"></script>
+  <script>
+  var myVideo = document.getElementById("video1");
+  function playPause() {
+    if (myVideo.paused)
+      myVideo.play();
+    else
+      myVideo.pause();
+  }
+send = myVideo;
+  $(document).ready(function(){
+  $("#sendButton").click(function(){
+    var server = "http://127.0.0.1:5000";
+    var appdir='/details';
+ var send_msg = "<p>Sending request</p>";
+ var received_msg = "<p>Details sent </p>";
+ console.log("-----test-----");
+ $('#message').html(send_msg);
+ $.ajax({
+     type: "POST",
+     url:server+appdir,
+     data: send,
+     dataType: 'json'
+ }).done(function(data) {
+   console.log(data);
+   $('#n3').val(data['img']);
+   $('#message').html(received_msg);
+    });
+  });
+});
+
+</script>
+
+</script>
+</body>
+</html>
